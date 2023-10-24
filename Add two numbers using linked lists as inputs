@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+struct ListNode* reverseList(struct ListNode* head) {
+    struct ListNode *prev = NULL;
+    struct ListNode *current = head;
+    struct ListNode *next = NULL;
+
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+
+    // 'prev' will be the new head of the reversed list
+    return prev;
+}
+
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
+    l1=reverseList(l1);
+    l2=reverseList(l2);
+    long long int n = 0, m = 0;
+    long long rn = 0, rm = 0;
+    long long rem1, rem2, rem3;
+
+    // Calculate the reverse values of l1 and l2
+    
+    while (l1 != NULL) {
+        n = n * 10 + (long long int)l1->val;
+        l1 =l1->next;
+    }
+
+    while (l2 != NULL) {
+        m = m * 10 + (long long int)l2->val;
+        l2 = l2->next;
+    }
+    // Calculate the sum and reverse it
+    long long int sum = n + m;
+
+    // Create the result linked list
+    struct ListNode* final = NULL;
+    struct ListNode* current = NULL;
+if (sum!=0){
+    while (sum != 0) {
+        rem3 = sum % 10;
+        struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));
+        newNode->val = rem3;
+        newNode->next = NULL;
+
+        if (final == NULL) {
+            final = newNode;
+            current = final;
+        } else {
+            current->next = newNode;
+            current = newNode;
+        }
+
+        sum /= 10;
+    }}
+    else
+    {
+        struct ListNode* newNode2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+        newNode2->val = 0;
+        newNode2->next = NULL;
+        return newNode2;
+    }
+
+    return final;
+}
